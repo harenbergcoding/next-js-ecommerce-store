@@ -1,20 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
-export default function Checkout() {
+export default function Thankyou() {
   return (
     <div>
       <Head>
-        <title>Cart</title>
+        <title>Thank you!</title>
         <meta
           name="description"
-          content="Checkout page. Type in your shipping and billing information."
+          content="Congratulations! Your digital art work journey just has begun!"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1>This is the checkout page</h1>
+        <h1>Thank you!</h1>
       </main>
     </div>
   );

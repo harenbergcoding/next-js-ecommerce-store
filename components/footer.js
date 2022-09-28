@@ -26,23 +26,23 @@ const navStyles = css`
   }
 `;
 
-export default function Header() {
+export default function Footer() {
   return (
-    <header>
+    <footer>
       <nav css={navStyles}>
         <div>
           <Link href="/">🏠</Link>
         </div>
         <div>
           <Link href="/cart">Product 1</Link>
-          <Link href="/checkout">Product 1</Link>
-          <Link href="/thank-you">Product 1</Link>
-          <Link href="/thank-you">Product 1</Link>
+          <Link href="/checkout">Product 2</Link>
+          <Link href="/thank-you">Product 3</Link>
+          <Link href="/thank-you">Product 4</Link>
         </div>
         <div>
           <Link href="/thank-you">🛒 3</Link>
         </div>
       </nav>
-    </header>
+    </footer>
   );
 }

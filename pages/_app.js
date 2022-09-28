@@ -1,4 +1,7 @@
 import { css, Global } from '@emotion/react';
+import Header from '../components/header';
+import Footer from '../components/footer';
+import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -20,8 +23,9 @@ function MyApp({ Component, pageProps }) {
           }
         `}
       />
-
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

@@ -5,27 +5,43 @@ import Link from 'next/link';
 const navStyles = css`
   background-color: pink;
   margin-top: 20px;
-  padding: 10px;
+  padding: 10px 100px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 
-  > a + a {
-    margin-left: 20px;
+  > div > a {
+    margin-left: 40px;
   }
 
-  > a {
+  > div > a {
+    text-transform: uppercase;
     :hover {
       color: white;
     }
+  }
+
+  > div > Link {
+    gap: 20px;
   }
 `;
 
 export default function Header() {
   return (
     <header>
-      <nav styles={navStyles}>
-        <Link href="/">Home</Link>
-        <Link href="/cart">Cart</Link>
-        <Link href="/checkout">Checkout</Link>
-        <Link href="/thank-you">Thank you</Link>
+      <nav css={navStyles}>
+        <div>
+          <Link href="/">🏠</Link>
+        </div>
+        <div>
+          <Link href="/cart">Product 1</Link>
+          <Link href="/checkout">Product 1</Link>
+          <Link href="/thank-you">Product 1</Link>
+          <Link href="/thank-you">Product 1</Link>
+        </div>
+        <div>
+          <Link href="/thank-you">🛒 3</Link>
+        </div>
       </nav>
     </header>
   );

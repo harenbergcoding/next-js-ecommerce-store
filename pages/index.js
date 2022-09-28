@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from '../components/header.js';
+import Footer from '../components/footer.js';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Header />
         Home
+        <Footer />
       </main>
       {/* <Footer>abc</Footer> */}
     </div>

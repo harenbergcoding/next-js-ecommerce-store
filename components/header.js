@@ -34,7 +34,9 @@ export default function Header() {
           <Link href="/">🏠</Link>
         </div>
         <div>
-          <Link href="/nfts">NFTs</Link>
+          <Link data-test-id="products-link" href="/nfts">
+            NFTs
+          </Link>
           <Link href="/checkout">Product 1</Link>
           <Link href="/thank-you">Product 1</Link>
           <Link href="/thank-you">Product 1</Link>

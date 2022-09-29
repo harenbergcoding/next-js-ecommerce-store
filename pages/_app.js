@@ -1,12 +1,10 @@
 import { css, Global } from '@emotion/react';
-import Header from '../components/header';
-import Footer from '../components/footer';
 import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Global
+      <Global // global styles
         styles={css`
           *,
           *::before,
@@ -24,6 +22,7 @@ function MyApp({ Component, pageProps }) {
         `}
       />
       <Layout>
+        {/* including Header and Footer components  */}
         <Component {...pageProps} />
       </Layout>
     </>

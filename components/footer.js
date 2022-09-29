@@ -34,7 +34,7 @@ export default function Footer() {
           <Link href="/">🏠</Link>
         </div>
         <div>
-          <Link href="/cart">Product 1</Link>
+          <Link href="/nfts">NFTs</Link>
           <Link href="/checkout">Product 2</Link>
           <Link href="/thank-you">Product 3</Link>
           <Link href="/thank-you">Product 4</Link>

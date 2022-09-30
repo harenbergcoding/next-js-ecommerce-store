@@ -45,13 +45,20 @@ export default function NftOverview(props) {
         {props.nftDatabase.map((nft) => {
           return (
             <div css={nftStyles} className="nft single product">
-              <Image src={`/${nft.id}.jpg`} width="720" height="480" />
+              <a href={`/nfts/${nft.id}`} data-test-id={`product-${nft.id}`}>
+                <Image
+                  src={`/${nft.id}.jpg`}
+                  width="720"
+                  height="480"
+                  data-test-id="product-image"
+                />
+              </a>
 
               <div>
                 <h1>{nft.name}</h1>
                 <div>
                   Type: {nft.type}
-                  Price: {nft.price}
+                  <span data-test-id="product-price">Price: {nft.price}</span>
                 </div>
                 <br />
                 About:

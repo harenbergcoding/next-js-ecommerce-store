@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import Image from 'next/image';
 import { nftDatabase } from '../../database/nftDatabase';
 
@@ -5,9 +6,11 @@ export default function (props) {
   return (
     <div>
       <Image src={`/${props.nft.id}.jpg`} width="720" height="480" />
-      <div>Name: {props.nft.name}</div>
-      <div>Type: {props.nft.type}</div>
-      <div>Price: {props.nft.price}</div>
+      <div>
+        <div>Name: {props.nft.name}</div>
+        <div>Type: {props.nft.type}</div>
+        <div>Price: {props.nft.price}</div>
+      </div>
     </div>
   );
 }

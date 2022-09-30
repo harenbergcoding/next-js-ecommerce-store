@@ -6,14 +6,14 @@ import Header from '../components/header.js';
 
 export default function Home() {
   return (
-    <div>
+    <div style={{ backgroundImage: 'url(/iguana.jpg)' }}>
       <Head>
         <title>Home</title>
         <meta
           name="description"
           content="Buy your first bored monkey nfts and become a virtual art collector!"
         />
-        <link rel="icon" href="/iguana.jpg" />
+        {/* <link rel="icon" href="/iguana.jpg" /> */}
       </Head>
 
       <main>

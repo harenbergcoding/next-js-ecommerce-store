@@ -15,7 +15,7 @@ const nftStyles = css`
   justify-content: center;
 
   > div {
-    width: 720px;
+    width: 620px;
     height: 480 px;
     text-align: center;
     border: 1px solid black;

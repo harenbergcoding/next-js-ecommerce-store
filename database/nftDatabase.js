@@ -1,7 +1,9 @@
 // This page simulates a data base
+import { getRandomValues } from 'crypto';
 import fs from 'fs';
 
 // console.log('fs', fs);
+// postgres nftdatabase, nftdatabaseuser, nftdatabasepassword
 
 export const nftDatabase = [
   {

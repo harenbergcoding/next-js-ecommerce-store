@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header.js';
 

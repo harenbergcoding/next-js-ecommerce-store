@@ -35,6 +35,11 @@ export default function ShowSingleProduct(props) {
 
   return (
     <div>
+      <div>
+        <a href="/nfts">
+          <button>Back</button>
+        </a>
+      </div>
       <Image src={`/${props.nft.id}.jpg`} width="720" height="480" />
       <div>
         <div>Name: {props.nft.name}</div>

@@ -3,6 +3,8 @@ import postgres from 'postgres';
 
 config();
 
+console.log('config()', config());
+
 const sql = postgres();
 // 'postgresql://nftdatabaseuser:nftdatabasepassword@localhost:5432/nftdatabase',
 

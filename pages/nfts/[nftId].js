@@ -2,7 +2,9 @@ import { css } from '@emotion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { nftDatabase } from '../../database/nftDatabase';
+import { getNftById } from '../../database/connect';
+
+// import { nftDatabase } from '../../database/nftDatabase';
 
 // function PositiveCartNumbers(event, numberOfItems, setNumberOfItems) {
 //   if (numberOfItems >= 0) {
@@ -83,15 +85,16 @@ export default function ShowSingleProduct(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  // console.log('context', context.query);
-  // console.log('nftId', context.query.nftId);
-  // console.log('nftDatabase', nftDatabase);
+export async function getServerSideProps(context) {
   const nftId = parseInt(context.query.nftId);
 
-  const nftMatch = nftDatabase.find((nft) => {
-    return nft.id === nftId;
-  });
-  console.log('nftMatch', nftMatch);
-  return { props: { nft: nftMatch } };
+  // import function grab id from the url
+  const singleNftbyId = await getNftById(nftId);
+
+  // const nftMatch = nftDatabase.find((nft) => {
+  //   return nft.id === nftId;
+  // });
+  console.log('singleNftbyId', singleNftbyId);
+  // console.log('nftMatch', nftMatch);
+  return { props: { nft: singleNftbyId } };
 }

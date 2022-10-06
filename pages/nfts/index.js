@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { nftDatabase } from '../../database/nftDatabase';
+import { getNfts } from '../../database/connect';
 
 const h1Styles = css`
   text-align: center;
@@ -73,12 +73,15 @@ export default function NftOverview(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const nfts = await getNfts();
   // console.log('nftDatabase', nftDatabase);
+  console.log('nfts', nfts);
 
   return {
     props: {
-      nftDatabase: nftDatabase,
+      // replace nftDatabase with nfts which comes from the db
+      nftDatabase: nfts,
     },
   };
 }

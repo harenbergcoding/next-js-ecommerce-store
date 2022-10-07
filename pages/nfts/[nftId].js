@@ -18,7 +18,7 @@ const pictureStyles = css`
   justify-content: center;
 `;
 
-const buttonStyles = css`
+const backButtonStyles = css`
   margin-left: 20px;
   border-radius: 4px;
   width: 80px;
@@ -28,6 +28,33 @@ const buttonStyles = css`
   :hover {
     background-color: #e04326;
     color: white;
+  }
+`;
+
+const addToCartStyles = css`
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+`;
+
+const addToCartButtonWrapperStyles = css`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+`;
+
+const addToCartButtonStyles = css`
+  display: flex;
+
+  background-color: #4b9793;
+  color: white;
+  justify-content: center;
+  border-radius: 4px;
+  width: 150px;
+  padding: 4px;
+  :hover {
+    background-color: white;
+    color: #4b9793;
   }
 `;
 
@@ -74,7 +101,7 @@ export default function ShowSingleProduct(props) {
         <div>
           <div>
             <a href="/nfts">
-              <button css={buttonStyles}>Back</button>
+              <button css={backButtonStyles}>Back</button>
             </a>
           </div>
 
@@ -94,27 +121,34 @@ export default function ShowSingleProduct(props) {
         </div>
         <div>
           {/* <div>Name: {props.nft.name}</div> */}
-          <div>Type: {props.nft.type}</div>
-          <div>Price: {props.nft.price}</div>
+          {/* <div>Type: {props.nft.type}</div>
+          <div>Price: {props.nft.price}</div> */}
         </div>
         <div>
-          <label>
-            Add quantity
-            <br />
-            <input
-              value={numberOfItems}
-              onChange={(event) => {
-                // PositiveCartNumbers(event, numberOfItems, setNumberOfItems);
-                event.currentTarget.value >= 0
-                  ? setNumberOfItems(event.currentTarget.value)
-                  : setNumberOfItems(0);
-              }}
-            />
-          </label>
-
-          <a href="/cart">
-            <button data-test-id="product-add-to-cart">Add to cart</button>
-          </a>
+          <div>
+            <label css={addToCartStyles}>
+              Add quantity:
+              <input
+                value={numberOfItems}
+                onChange={(event) => {
+                  // PositiveCartNumbers(event, numberOfItems, setNumberOfItems);
+                  event.currentTarget.value >= 0
+                    ? setNumberOfItems(event.currentTarget.value)
+                    : setNumberOfItems(0);
+                }}
+              />
+            </label>
+          </div>
+          <div css={addToCartButtonWrapperStyles}>
+            <a href="/cart">
+              <button
+                css={addToCartButtonStyles}
+                data-test-id="product-add-to-cart"
+              >
+                Add to cart
+              </button>
+            </a>
+          </div>
         </div>
         {console.log('numberOfItems', numberOfItems)}
         {/* {PositiveCartNumber(numberOfItems, setNumberOfItems)}

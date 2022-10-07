@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { CookieBanner } from '../components/cookieBanner';
 
 // import { useState } from 'react';
 
@@ -42,6 +43,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <CookieBanner />
         <h1 css={h1Styles}>Buy, Sell and Trade Your NFTs </h1>
         <div css={gridStyles}>
           <div css={gridboxStyles}>

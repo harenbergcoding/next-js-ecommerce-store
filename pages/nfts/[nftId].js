@@ -102,7 +102,7 @@ export default function ShowSingleProduct(props) {
         <div>
           <div>
             <a href="/nfts">
-              <button css={backButtonStyles}>Back</button>
+              <button css={backButtonStyles}> 🠔 Back</button>
             </a>
           </div>
 

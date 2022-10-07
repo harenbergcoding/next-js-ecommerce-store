@@ -90,7 +90,7 @@ export default function NftOverview(props) {
 export async function getServerSideProps() {
   const nfts = await getNfts();
 
-  console.log('nfts', nfts);
+  // console.log('nfts', nfts);
 
   return {
     props: {

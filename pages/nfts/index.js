@@ -15,12 +15,16 @@ const nftStyles = css`
   display: flex;
   align-content: center;
   justify-content: center;
+  border-radius: 12px;
+  border: 1px solid black;
+  width: 1240px;
+  margin: 0 auto;
 
   > div {
     width: 620px;
     height: 480 px;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     color: green;
   }
 
@@ -39,19 +43,21 @@ export default function NftOverview(props) {
       </Head>
 
       <main>
-        <h1 css={h1Styles}>Buy, sell and trade NFTs</h1>
+        <h1 css={h1Styles}>Pick Your NFT</h1>
 
         {props.nftDatabase.map((nft) => {
           return (
             <div css={nftStyles} className="nft single product">
-              <a href={`/nfts/${nft.id}`} data-test-id={`product-${nft.id}`}>
-                <Image
-                  src={`/${nft.id}.jpg`}
-                  width="720"
-                  height="480"
-                  data-test-id="product-image"
-                />
-              </a>
+              <div>
+                <a href={`/nfts/${nft.id}`} data-test-id={`product-${nft.id}`}>
+                  <Image
+                    src={`/${nft.id}.jpg`}
+                    width="720"
+                    height="480"
+                    data-test-id="product-image"
+                  />
+                </a>
+              </div>
 
               <div>
                 <h1>{nft.name}</h1>

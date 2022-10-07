@@ -30,7 +30,7 @@ export default function Thankyou() {
           name="description"
           content="Congratulations! Your digital art work journey just has begun!"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/2.jpg" />
       </Head>
 
       <main>

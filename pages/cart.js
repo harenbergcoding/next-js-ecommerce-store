@@ -8,10 +8,10 @@ export default function Cart() {
       <Head>
         <title>Cart</title>
         <meta
-          name="description"
+          name="Cart"
           content="Review all your selected products in the cart page"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/2.jpg" />
       </Head>
 
       <main>

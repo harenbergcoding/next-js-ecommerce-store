@@ -16,7 +16,7 @@ const navStyles = css`
   > div > a {
     text-transform: uppercase;
     :hover {
-      color: white;
+      color: #e04326;
     }
   }
 

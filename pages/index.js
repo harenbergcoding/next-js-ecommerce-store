@@ -5,9 +5,8 @@ import Image from 'next/image';
 // import { useState } from 'react';
 
 const h1Styles = css`
-  position: absolute;
-  top: 50px;
-  left: 100px;
+  margin-top: 100px;
+  margin-bottom: 50px;
   color: black;
   font-size: 36px;
   text-align: center;
@@ -23,7 +22,6 @@ const gridStyles = css`
 `;
 
 const gridboxStyles = css`
-  margin-top: 300px;
   grid-auto-flow: row;
   width: 420px;
   height: 280px;
@@ -40,10 +38,11 @@ export default function Home() {
           name="description"
           content="Buy your first bored monkey nfts and become a virtual art collector!"
         />
+        <link rel="icon" href="/2.jpg" />
       </Head>
 
       <main>
-        <h1>Buy, Sell and Trade Your NFTs </h1>
+        <h1 css={h1Styles}>Buy, Sell and Trade Your NFTs </h1>
         <div css={gridStyles}>
           <div css={gridboxStyles}>
             <a href="/nfts">

@@ -4,9 +4,11 @@ import Image from 'next/image';
 import { getNfts } from '../../database/connect';
 
 const h1Styles = css`
+  margin-top: 100px;
+  margin-bottom: 50px;
+  color: black;
+  font-size: 36px;
   text-align: center;
-  margin: 0 auto;
-  padding: 20px;
 `;
 
 const nftStyles = css`
@@ -31,12 +33,9 @@ export default function NftOverview(props) {
   return (
     <>
       <Head>
-        <title>Buy, sell and trade NFTs</title>
-        <meta
-          name="description"
-          content="Buy, sell and trade NFTs and become a virtual art collector!"
-        />
-        <link rel="icon" href="/iguana.jpg" />
+        <title>NFT Overview</title>
+        <meta name="description" content="See our beautiful NFTs" />
+        <link rel="icon" href="/2.jpg" />
       </Head>
 
       <main>

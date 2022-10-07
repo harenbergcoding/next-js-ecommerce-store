@@ -28,14 +28,20 @@ export function CookieBanner() {
 
   return (
     <div css={cookieBannerStyles(isBannerOpen)}>
-      <span>By clicking you are accepting our cookies</span>
+      <span
+        css={css`
+          margin-right: 10px;
+        `}
+      >
+        By clicking you are accepting our cookies
+      </span>
       <button
         css={cookieButtonStyles}
         onClick={() => {
           setIsBannerOpen(false);
         }}
       >
-        Accept all.
+        Accept all
       </button>
     </div>
   );

@@ -2,12 +2,19 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 
+// const headerStyles = css`
+//   position: fixed;
+//   top: 0;
+//   width: 100%;
+// `;
+
 const navStyles = css`
   margin-top: 20px;
   padding: 10px 100px;
   display: flex;
   justify-content: space-between;
   text-align: center;
+  z-index: 10;
 
   > div > a {
     margin-left: 40px;
@@ -41,24 +48,4 @@ export default function Header() {
       </nav>
     </header>
   );
-}
-
-{
-  /* <nav css={navStyles}>
-        <div>
-          <Link href="/">🏠</Link>
-        </div>
-        <div>
-          <Link data-test-id="products-link" href="/nfts">
-            NFTs
-          </Link>
-          <Link href="/nfts/1">#1</Link>
-          <Link href="/nfts/2">#2</Link>
-          <Link href="/nfts/3">#3</Link>
-          <Link href="/nfts/4">#4</Link>
-        </div>
-        <div>
-          <Link href="/thank-you">🛒 3</Link>
-        </div>
-      </nav> */
 }

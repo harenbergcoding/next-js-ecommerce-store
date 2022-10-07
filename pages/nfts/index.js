@@ -71,8 +71,8 @@ export default function NftOverview(props) {
               <div css={descriptionStyles}>
                 <h1>{nft.name}</h1>
                 <div>
-                  Type: {nft.type}
-                  <span data-test-id="product-price">Price: {nft.price}</span>
+                  Type: {nft.type} |
+                  <span data-test-id="product-price"> Price: {nft.price}</span>
                 </div>
                 <br />
                 About:

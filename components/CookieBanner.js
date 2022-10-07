@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+//css written as function accepting cookie state
 const cookieBannerStyles = (isBannerOpen) => css`
   display: flex;
   justify-content: center;
@@ -8,6 +9,7 @@ const cookieBannerStyles = (isBannerOpen) => css`
   background-color: #e2e2e2;
   padding: 5px;
 
+  //conditional rendering with inserting a variable which triggers if cookies were accepted
   ${!isBannerOpen &&
   css`
     height: 0px;
@@ -25,6 +27,13 @@ const cookieButtonStyles = css`
 
 export function CookieBanner() {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
+
+  //useEffect to run window.localStorage.getItem in the FE
+  useEffect(() => {
+    //defining initival local storage value before any user interaction
+    const initialLocalStorageValue =
+      window.localStorage.getItem('isBannerOpen');
+  }, []);
 
   return (
     <div css={cookieBannerStyles(isBannerOpen)}>

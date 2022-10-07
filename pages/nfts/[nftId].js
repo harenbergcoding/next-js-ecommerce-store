@@ -41,6 +41,7 @@ const addToCartButtonWrapperStyles = css`
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  padding-bottom: 200px;
 `;
 
 const addToCartButtonStyles = css`

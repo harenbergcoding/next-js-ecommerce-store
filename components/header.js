@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 
 const navStyles = css`
-  background-color: pink;
   margin-top: 20px;
   padding: 10px 100px;
   display: flex;
@@ -30,6 +29,22 @@ export default function Header() {
   return (
     <header>
       <nav css={navStyles}>
+        <div></div>
+        <div>
+          <Link href="/">HOME</Link>
+          <Link data-test-id="products-link" href="/nfts">
+            NFTS
+          </Link>
+          <Link href="/thank-you">CART 3</Link>
+        </div>
+        <div></div>
+      </nav>
+    </header>
+  );
+}
+
+{
+  /* <nav css={navStyles}>
         <div>
           <Link href="/">🏠</Link>
         </div>
@@ -45,7 +60,5 @@ export default function Header() {
         <div>
           <Link href="/thank-you">🛒 3</Link>
         </div>
-      </nav>
-    </header>
-  );
+      </nav> */
 }

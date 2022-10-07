@@ -5,7 +5,7 @@ import Image from 'next/image';
 // import { useState } from 'react';
 
 const h1Styles = css`
-  margin-top: 100px;
+  margin-top: 80px;
   margin-bottom: 50px;
   color: black;
   font-size: 36px;

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getNfts } from '../../database/connect';
 
 const h1Styles = css`
-  margin-top: 100px;
+  margin-top: 80px;
   margin-bottom: 50px;
   color: black;
   font-size: 36px;
@@ -17,20 +17,22 @@ const nftStyles = css`
   justify-content: center;
   border-radius: 12px;
   border: 1px solid black;
-  width: 1240px;
+  width: 1150px;
   margin: 0 auto;
+  margin-bottom: 20px;
 
   > div {
-    width: 620px;
-    height: 480 px;
-    text-align: center;
-    /* border: 1px solid black; */
-    color: green;
+    width: 576px;
+    height: 382px;
+    /* text-align: center; */
   }
+`;
 
-  > div + div {
-    align-items: center;
-  }
+const descriptionStyles = css`
+  width: 576px;
+  height: 380px;
+  text-align: center;
+  padding-top: 50px;
 `;
 
 export default function NftOverview(props) {
@@ -49,17 +51,24 @@ export default function NftOverview(props) {
           return (
             <div css={nftStyles} className="nft single product">
               <div>
-                <a href={`/nfts/${nft.id}`} data-test-id={`product-${nft.id}`}>
-                  <Image
-                    src={`/${nft.id}.jpg`}
-                    width="720"
-                    height="480"
-                    data-test-id="product-image"
-                  />
-                </a>
+                <div>
+                  <a
+                    href={`/nfts/${nft.id}`}
+                    data-test-id={`product-${nft.id}`}
+                  >
+                    <Image
+                      src={`/${nft.id}.jpg`}
+                      width="576"
+                      height="384"
+                      data-test-id="product-image"
+                      css={css`
+                        border-radius: 12px;
+                      `}
+                    />
+                  </a>
+                </div>
               </div>
-
-              <div>
+              <div css={descriptionStyles}>
                 <h1>{nft.name}</h1>
                 <div>
                   Type: {nft.type}

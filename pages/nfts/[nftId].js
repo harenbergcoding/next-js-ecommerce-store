@@ -5,6 +5,32 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { getNftById } from '../../database/connect';
 
+const h1Styles = css`
+  margin-top: 80px;
+  margin-bottom: 50px;
+  color: black;
+  font-size: 36px;
+  text-align: center;
+`;
+
+const pictureStyles = css`
+  display: flex;
+  justify-content: center;
+`;
+
+const buttonStyles = css`
+  margin-left: 20px;
+  border-radius: 4px;
+  width: 80px;
+  background-color: white;
+  color: #e04326;
+
+  :hover {
+    background-color: #e04326;
+    color: white;
+  }
+`;
+
 // import { nftDatabase } from '../../database/nftDatabase';
 
 // function PositiveCartNumbers(event, numberOfItems, setNumberOfItems) {
@@ -46,13 +72,28 @@ export default function ShowSingleProduct(props) {
       </Head>
       <div>
         <div>
-          <a href="/nfts">
-            <button>Back</button>
-          </a>
+          <div>
+            <a href="/nfts">
+              <button css={buttonStyles}>Back</button>
+            </a>
+          </div>
+
+          <h1 css={h1Styles}>
+            {props.nft.name} - The {props.nft.type}
+          </h1>
         </div>
-        <Image src={`/${props.nft.id}.jpg`} width="720" height="480" />
+        <div css={pictureStyles}>
+          <Image
+            src={`/${props.nft.id}.jpg`}
+            width="720"
+            height="480"
+            css={css`
+              border-radius: 12px;
+            `}
+          />
+        </div>
         <div>
-          <div>Name: {props.nft.name}</div>
+          {/* <div>Name: {props.nft.name}</div> */}
           <div>Type: {props.nft.type}</div>
           <div>Price: {props.nft.price}</div>
         </div>

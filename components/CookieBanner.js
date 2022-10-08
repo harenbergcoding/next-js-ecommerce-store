@@ -37,16 +37,19 @@ export function CookieBanner() {
     //grabbing the initival local storage value before any user interaction
     //e.g. is user was already on the website don't show banner again
     //returns true (banner not clicked),false (banner already clicked) or null (cookie not existent)
-    const initialLocalStorageValue =
-      // parsing cookie abstrackted in CookieBanner
-      getLocalStorage('isBannerOpen');
+
+    const initialLocalStorageValue = getLocalStorage('isBannerOpen');
+
+    // parsing cookie abstrackted in CookieBanner
+    setIsBannerOpen(JSON.parse(initialLocalStorageValue));
 
     //setting Bannerstate to initial local storage value
-
     //null will cause error - don't parse Cookie if null
     if (initialLocalStorageValue !== null) {
-      // no need to JSON.strigify() since it's happening it CookieBanner();
-      setIsBannerOpen(initialLocalStorageValue);
+      return (
+        // no need to JSON.strigify() since it's happening it CookieBanner();
+        setIsBannerOpen(initialLocalStorageValue)
+      );
     }
   }, []);
 

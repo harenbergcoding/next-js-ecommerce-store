@@ -1,5 +1,9 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from '../utility functions/localStorage';
 
 //css written as function accepting cookie state
 const cookieBannerStyles = (isBannerOpen) => css`
@@ -28,14 +32,26 @@ const cookieButtonStyles = css`
 export function CookieBanner() {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
-  //useEffect to run window.localStorage.getItem in the FE
+  //useEffect to run window.localStorage.getItem only in the browser
   useEffect(() => {
-    //defining initival local storage value before any user interaction
+    //grabbing the initival local storage value before any user interaction
+    //e.g. is user was already on the website don't show banner again
+    //returns true (banner not clicked),false (banner already clicked) or null (cookie not existent)
     const initialLocalStorageValue =
-      window.localStorage.getItem('isBannerOpen');
+      // parsing cookie abstrackted in CookieBanner
+      getLocalStorage('isBannerOpen');
+
+    //setting Bannerstate to initial local storage value
+
+    //null will cause error - don't parse Cookie if null
+    if (initialLocalStorageValue !== null) {
+      // no need to JSON.strigify() since it's happening it CookieBanner();
+      setIsBannerOpen(initialLocalStorageValue);
+    }
   }, []);
 
   return (
+    //css function that lets the banner vanish if clicked
     <div css={cookieBannerStyles(isBannerOpen)}>
       <span
         css={css`
@@ -47,7 +63,11 @@ export function CookieBanner() {
       <button
         css={cookieButtonStyles}
         onClick={() => {
+          //update Bannerstate
           setIsBannerOpen(false);
+
+          //Store value in local storage - converting value false to string happening in util function setLocalStorage
+          setLocalStorage('isBannerOpen', false);
         }}
       >
         Accept all

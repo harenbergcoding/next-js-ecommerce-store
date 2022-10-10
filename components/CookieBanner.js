@@ -1,9 +1,6 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
-import {
-  getLocalStorage,
-  setLocalStorage,
-} from '../utility functions/localStorage';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 //css written as function accepting cookie state
 const cookieBannerStyles = (isBannerOpen) => css`

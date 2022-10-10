@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
+import Cookie from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { getNftById } from '../../database/connect';
+import { nftDatabase } from '../../database/nftDatabase';
 
 const h1Styles = css`
   margin-top: 80px;
@@ -41,7 +43,7 @@ const addToCartButtonWrapperStyles = css`
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  padding-bottom: 200px;
+  padding-bottom: 50px;
 `;
 
 const addToCartButtonStyles = css`
@@ -59,32 +61,6 @@ const addToCartButtonStyles = css`
   }
 `;
 
-// import { nftDatabase } from '../../database/nftDatabase';
-
-// function PositiveCartNumbers(event, numberOfItems, setNumberOfItems) {
-//   if (numberOfItems >= 0) {
-//     return setNumberOfItems(event.currentTarget.value);
-//   } else {
-//     setNumberOfItems(0);
-//     console.log('hello');
-//   }
-// }
-
-// function HandleChange(event, numberOfItems, setNumberOfItems) {
-//   if (numberOfItems >= 0) {
-//     return (
-//       <input
-//         value={numberOfItems}
-//         onChange={(event) => setNumberOfItems(event.currentTarget.value)}
-//       />
-//     );
-//   } else {
-//     return (
-//       <input value={numberOfItems} onChange={(event) => setNumberOfItems(0)} />
-//     );
-//   }
-// }
-
 export default function ShowSingleProduct(props) {
   const [numberOfItems, setNumberOfItems] = useState(1);
 
@@ -98,6 +74,7 @@ export default function ShowSingleProduct(props) {
         />
         <link rel="icon" href="/2.jpg" />
       </Head>
+
       <div>
         <div>
           <div>
@@ -120,59 +97,37 @@ export default function ShowSingleProduct(props) {
             `}
           />
         </div>
-        <div>
-          {/* <div>Name: {props.nft.name}</div> */}
-          {/* <div>Type: {props.nft.type}</div>
-          <div>Price: {props.nft.price}</div> */}
+        <div>{/* <div>Price: {props.nft.price}</div> */}</div>
+        <div></div>
+        <div css={addToCartStyles}>
+          <span>Add Quantity: {numberOfItems}</span>
+          <button
+            // refactor into a HandleChange function!
+            onClick={() => {
+              numberOfItems >= 1
+                ? setNumberOfItems(numberOfItems - 1)
+                : setNumberOfItems(0);
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={() => {
+              setNumberOfItems(numberOfItems + 1);
+            }}
+          >
+            +
+          </button>
+          <a href="/cart" alt="">
+            <button
+              css={addToCartButtonStyles}
+              data-test-id="product-add-to-cart"
+            >
+              Add to cart{' '}
+            </button>
+          </a>
         </div>
-        <div>
-          <div>
-            <label css={addToCartStyles}>
-              Add quantity:
-              <input
-                value={numberOfItems}
-                onChange={(event) => {
-                  // PositiveCartNumbers(event, numberOfItems, setNumberOfItems);
-                  event.currentTarget.value >= 0
-                    ? setNumberOfItems(event.currentTarget.value)
-                    : setNumberOfItems(0);
-                }}
-              />
-            </label>
-          </div>
-          <div css={addToCartButtonWrapperStyles}>
-            <a href="/cart">
-              <button
-                css={addToCartButtonStyles}
-                data-test-id="product-add-to-cart"
-              >
-                Add to cart
-              </button>
-            </a>
-          </div>
-        </div>
-        {console.log('numberOfItems', numberOfItems)}
-        {/* {PositiveCartNumber(numberOfItems, setNumberOfItems)}
-
-      <button
-        onClick={() => {
-          setNumberOfItems(numberOfItems - 1);
-        }}
-      >
-        -
-      </button>
-      <button
-        onClick={() => {
-          setNumberOfItems(numberOfItems + 1);
-        }}
-      >
-        +
-      </button>
-      <a href="/cart" alt="">
-        <button>Add to cart </button>
-      </a>
-    </div> */}{' '}
-      </div>{' '}
+      </div>
     </>
   );
 }
@@ -186,7 +141,6 @@ export async function getServerSideProps(context) {
   // const nftMatch = nftDatabase.find((nft) => {
   //   return nft.id === nftId;
   // });
-  console.log('singleNftbyId', singleNftbyId);
-  // console.log('nftMatch', nftMatch);
+
   return { props: { nft: singleNftbyId } };
 }

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { getNftById } from '../../database/connect';
 import { nftDatabase } from '../../database/nftDatabase';
-import { setStringifiedCookie } from '../../utils/cookies';
+import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 const h1Styles = css`
   margin-top: 80px;
@@ -115,12 +115,12 @@ export default function ShowSingleProduct(props) {
                 ? setNumberOfItems(numberOfItems - 1)
                 : setNumberOfItems(0);
 
-              numberOfItems >= 1
-                ? setStringifiedCookie(
-                    `Product ${props.nft.name}`,
-                    numberOfItems - 1,
-                  )
-                : setStringifiedCookie(`Product ${props.nft.name}`, 0);
+              const currentValue = getParsedCookie('Product');
+              if (!currentValue) {
+                setStringifiedCookie('Product', 0);
+              } else {
+                setStringifiedCookie('Product', numberOfItems - 1);
+              }
             }}
           >
             -
@@ -128,10 +128,13 @@ export default function ShowSingleProduct(props) {
           <button
             onClick={() => {
               setNumberOfItems(numberOfItems + 1);
-              setStringifiedCookie(
-                `Product ${props.nft.name}`,
-                numberOfItems + 1,
-              );
+
+              const currentCookieValue = getParsedCookie('Product');
+              if (!currentCookieValue) {
+                setStringifiedCookie('Product', 2);
+              } else {
+                setStringifiedCookie('Product', currentCookieValue + 1);
+              }
             }}
           >
             +

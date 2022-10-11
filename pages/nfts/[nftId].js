@@ -89,7 +89,6 @@ export default function ShowSingleProduct(props) {
               <button css={backButtonStyles}> 🠔 Back</button>
             </a>
           </div>
-
           <h1 css={h1Styles}>
             {props.nft.name} - The {props.nft.type}
           </h1>
@@ -117,7 +116,9 @@ export default function ShowSingleProduct(props) {
 
               const currentValue = getParsedCookie('Product');
               if (!currentValue) {
-                setStringifiedCookie('Product', 0);
+                setStringifiedCookie('Product', [
+                  { id: props.nft.id, Product: 2 },
+                ]);
               } else {
                 setStringifiedCookie('Product', numberOfItems - 1);
               }
@@ -129,13 +130,37 @@ export default function ShowSingleProduct(props) {
             onClick={() => {
               setNumberOfItems(numberOfItems + 1);
 
+              //returns undefined the first time
               const currentCookieValue = getParsedCookie('Product');
+
+              // if cookie does not exist set cookie 'Product' as Array
               if (!currentCookieValue) {
-                setStringifiedCookie('Product', 2);
+                return setStringifiedCookie('Product', [
+                  // productQuantity wurde mit 1 initialisiert
+                  { id: props.nft.id, productQuantity: 2 },
+                ]);
+              } // CONTINUE https://www.youtube.com/watch?v=iXZw8zo1qbI&ab_channel=UpLeveled at 1:32:17
+
+              console.log('currentCookieValue', currentCookieValue);
+
+              // matching existing cookies with page id
+              const foundCookie = currentCookieValue.find(
+                (nftCookie) => nftCookie.id === props.nft.id,
+              );
+
+              console.log('foundCookie', foundCookie);
+
+              if (!foundCookie) {
+                currentCookieValue.push({
+                  id: props.nft.id,
+                  product: 2,
+                });
               } else {
-                setStringifiedCookie('Product', currentCookieValue + 1);
+                foundCookie.productQuantity++;
               }
             }}
+
+            // console.log('foundCookie', foundCookie);
           >
             +
           </button>

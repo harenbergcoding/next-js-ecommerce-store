@@ -2,8 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import { getNfts } from '../../database/connect';
+import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 export default function Cart(props) {
+  const cartCookie = getParsedCookie();
+  console.log(cartCookie);
   return (
     <div>
       <Head>
@@ -19,7 +22,12 @@ export default function Cart(props) {
         <h1>This is the cart page</h1>
         <div>
           {props.nftDatabase.map((singleNft) => {
-            return <div>{singleNft.id}</div>;
+            return (
+              <div key={singleNft.id}>
+                {singleNft.name} <br />
+                {singleNft.type}
+              </div>
+            );
           })}
         </div>
       </main>

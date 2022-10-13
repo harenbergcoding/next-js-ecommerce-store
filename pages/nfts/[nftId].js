@@ -110,18 +110,41 @@ export default function ShowSingleProduct(props) {
           <button
             // refactor into a HandleChange function!
             onClick={() => {
-              numberOfItems >= 1
+              // number initialized with 1, preventing user going below 1
+              numberOfItems >= 2
                 ? setNumberOfItems(numberOfItems - 1)
-                : setNumberOfItems(0);
+                : setNumberOfItems(1);
 
-              const currentValue = getParsedCookie('Product');
-              if (!currentValue) {
-                setStringifiedCookie('Product', [
-                  { id: props.nft.id, Product: 2 },
-                ]);
-              } else {
-                setStringifiedCookie('Product', numberOfItems - 1);
+              //get Cookie the first time
+              //returns undefined
+              const currentCookieValue = getParsedCookie('Product');
+
+              // matching existing cookies with page id
+              const foundCookie = currentCookieValue.find(
+                (nftCookie) => nftCookie.id === props.nft.id,
+              );
+
+              // add new cookie if not existent
+
+              if (foundCookie) {
+                // set the productQuantity of the foundCookie -1
+                foundCookie.productQuantity--;
+                setStringifiedCookie('Product', currentCookieValue);
               }
+
+              // add new cookie if not existent
+
+              // if (!foundCookie) {
+              //   currentCookieValue.push({
+              //     id: props.nft.id,
+              //     productQuantity: 2,
+              //   });
+              //   setStringifiedCookie('Product', currentCookieValue);
+              // } else {
+              //   // set the productQuantity of the foundCookie +1
+              //   foundCookie.productQuantity++;
+              //   setStringifiedCookie('Product', currentCookieValue);
+              // }
             }}
           >
             -
@@ -141,16 +164,12 @@ export default function ShowSingleProduct(props) {
                   // productQuantity was initialized with 1
                   { id: props.nft.id, productQuantity: 2 },
                 ]);
-              } // CONTINUE https://www.youtube.com/watch?v=iXZw8zo1qbI&ab_channel=UpLeveled at 1:32:17
-
-              // console.log('currentCookieValue', currentCookieValue);
+              }
 
               // matching existing cookies with page id
               const foundCookie = currentCookieValue.find(
                 (nftCookie) => nftCookie.id === props.nft.id,
               );
-
-              // console.log('foundCookie', foundCookie);
 
               // add new cookie if not existent
 
@@ -165,32 +184,7 @@ export default function ShowSingleProduct(props) {
                 foundCookie.productQuantity++;
                 setStringifiedCookie('Product', currentCookieValue);
               }
-
-              console.log('currentCookieValue', currentCookieValue);
-              // updated product Quantity from the Cookie
-
-              // if (!foundCookie) {
-              //   currentCookieValue.push({
-              //     id: props.nft.id,
-              //     productQuantity: productQuantityUpdated,
-              //   });
-              // } else {
-              //   // updated product Quantity from the Cookie
-              //   let productQuantityUpdated = foundCookie.productQuantity;
-
-              // console.log('productQuantityUpdated', productQuantityUpdated);
-
-              // return setStringifiedCookie('Product', [
-              //   // productQuantity was initialized with 1
-              //   {
-              //     id: props.nft.id,
-              //     productQuantity: productQuantityUpdated + 1,
-              //   },
-              // ]);
-              // }
             }}
-
-            // console.log('foundCookie', foundCookie);
           >
             +
           </button>

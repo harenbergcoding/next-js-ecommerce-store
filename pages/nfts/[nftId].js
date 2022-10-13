@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { getNftById } from '../../database/connect';
+import { getNftById, getNfts } from '../../database/connect';
 import { nftDatabase } from '../../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
@@ -151,6 +151,10 @@ export default function ShowSingleProduct(props) {
                 ]);
               }
 
+              {
+                console.log('currentCookieValue', currentCookieValue);
+              }
+
               // matching existing cookies with page id
               const foundCookie = currentCookieValue.find(
                 (nftCookie) => nftCookie.id === props.nft.id,
@@ -202,6 +206,22 @@ export default function ShowSingleProduct(props) {
 
 export async function getServerSideProps(context) {
   const nftId = parseInt(context.query.nftId);
+
+  console.log('currentCookieValue', context.req.currentCookieValue);
+
+  const parsedCookies = context.req.cookies.productQuantity
+    ? JSON.parse(context.req.cookies.productQuantity)
+    : [];
+
+  const cartProducts = (await getNfts()).map((nft) => {
+    return {
+      ...nft,
+      amount:
+        parsedCookies.find(
+          (currentCookieValue) => product.id === currentCookieValue.id,
+        )?.amount || 0 /* null or 0 ? */,
+    };
+  });
 
   // import function grab id from the url
   const singleNftbyId = await getNftById(nftId);

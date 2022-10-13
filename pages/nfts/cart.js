@@ -1,12 +1,16 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getNfts } from '../../database/connect';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 export default function Cart(props) {
-  const cartCookie = getParsedCookie();
-  console.log(cartCookie);
+  const cartCookie = getParsedCookie('Product');
+
+  // 1:43 https://www.youtube.com/watch?v=iXZw8zo1qbI&ab_channel=UpLeveled
+
+  // console.log('cartCookieFE', cartCookie);
   return (
     <div>
       <Head>
@@ -20,12 +24,38 @@ export default function Cart(props) {
 
       <main>
         <h1>This is the cart page</h1>
+
+        {/* <div>{JSON.stringify(cartCookie)}</div> */}
         <div>
-          {props.nftDatabase.map((singleNft) => {
+          {props.cartProducts.map((singleNft) => {
             return (
-              <div key={singleNft.id}>
-                {singleNft.name} <br />
-                {singleNft.type}
+              // css={nftStyles}
+              <div className="nft single product">
+                <div>
+                  <div>
+                    <Image
+                      src={`/${singleNft.id}.jpg`}
+                      width="345"
+                      height="230"
+                    />
+                  </div>
+                </div>
+                {/* css={descriptionStyles} */}
+                <div>
+                  <h1>{singleNft.name}</h1>
+                  <div>
+                    Type: {singleNft.type} |
+                    <span data-test-id="product-price">
+                      {' '}
+                      Price: {singleNft.price}
+                      Amount: {singleNft.amount}
+                    </span>
+                  </div>
+                  <br />
+                  About:
+                  <br />
+                  {/* {nft.description} */}
+                </div>
               </div>
             );
           })}
@@ -35,18 +65,40 @@ export default function Cart(props) {
   );
 }
 
-export async function getServerSideProps() {
-  const nfts = await getNfts();
+export async function getServerSideProps(context) {
+  const nftId = parseInt(context.query.nftId);
 
-  // console.log('nfts', nfts);
+  console.log('currentCookieValue', context.req.currentCookieValue);
+
+  const parsedCookies = context.req.cookies.productQuantity
+    ? JSON.parse(context.req.cookies.productQuantity)
+    : [];
+
+  const cartProducts = (await getNfts()).map((nft) => {
+    return {
+      ...nft,
+      amount:
+        parsedCookies.find(
+          (currentCookieValue) => product.id === currentCookieValue.id,
+        )?.amount || 0 /* null or 0 ? */,
+    };
+  });
 
   return {
-    props: {
-      // replace nftDatabase with nfts which comes from the db
-      nftDatabase: nfts,
-    },
+    props: { cartProducts: cartProducts },
   };
 }
+
+// export async function getServerSideProps(context) {
+//   const nfts = await getNfts();
+
+//   return {
+//     props: {
+//       // replace nftDatabase with nfts which comes from the db
+//       nftDatabase: nfts,
+//     },
+//   };
+// }
 
 // We (Ute and I) were trying to implement the product quantity count on the single product page so that it updates on click. José and Lukas helped us figure it out and asked us to document it as it might help others.
 // What would be the expected behaviour

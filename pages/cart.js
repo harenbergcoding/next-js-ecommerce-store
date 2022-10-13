@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import { getNfts } from '../../database/connect';
 
-export default function Cart() {
+export default function Cart(props) {
   return (
     <div>
       <Head>
@@ -16,9 +17,27 @@ export default function Cart() {
 
       <main>
         <h1>This is the cart page</h1>
+        <div>
+          {props.nftDatabase.map((singleNft) => {
+            return <div>{singleNft.id}</div>;
+          })}
+        </div>
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const nfts = await getNfts();
+
+  // console.log('nfts', nfts);
+
+  return {
+    props: {
+      // replace nftDatabase with nfts which comes from the db
+      nftDatabase: nfts,
+    },
+  };
 }
 
 // We (Ute and I) were trying to implement the product quantity count on the single product page so that it updates on click. José and Lukas helped us figure it out and asked us to document it as it might help others.

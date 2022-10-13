@@ -125,26 +125,11 @@ export default function ShowSingleProduct(props) {
               );
 
               // add new cookie if not existent
-
               if (foundCookie) {
                 // set the productQuantity of the foundCookie -1
                 foundCookie.productQuantity--;
                 setStringifiedCookie('Product', currentCookieValue);
               }
-
-              // add new cookie if not existent
-
-              // if (!foundCookie) {
-              //   currentCookieValue.push({
-              //     id: props.nft.id,
-              //     productQuantity: 2,
-              //   });
-              //   setStringifiedCookie('Product', currentCookieValue);
-              // } else {
-              //   // set the productQuantity of the foundCookie +1
-              //   foundCookie.productQuantity++;
-              //   setStringifiedCookie('Product', currentCookieValue);
-              // }
             }}
           >
             -
@@ -172,7 +157,6 @@ export default function ShowSingleProduct(props) {
               );
 
               // add new cookie if not existent
-
               if (!foundCookie) {
                 currentCookieValue.push({
                   id: props.nft.id,

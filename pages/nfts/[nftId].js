@@ -192,8 +192,22 @@ export default function ShowSingleProduct(props) {
             <button
               css={addToCartButtonStyles}
               data-test-id="product-add-to-cart"
+              onClick={() => {
+                setNumberOfItems(numberOfItems);
+
+                //get Cookie the first time
+                //returns undefined
+                const currentCookieValue = getParsedCookie('Product');
+
+                if (!currentCookieValue) {
+                  return setStringifiedCookie('Product', [
+                    // productQuantity was initialized with 1
+                    { id: props.nft.id, productQuantity: 1 },
+                  ]);
+                }
+              }}
             >
-              Add to cart{' '}
+              Add to cart
             </button>
           </a>
         </div>

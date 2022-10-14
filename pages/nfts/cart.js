@@ -1,3 +1,4 @@
+// import fs from 'fs';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,9 +7,7 @@ import { getNfts } from '../../database/connect';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 export default function Cart(props) {
-  const cartCookie = getParsedCookie('Product');
-
-  // 1:43 https://www.youtube.com/watch?v=iXZw8zo1qbI&ab_channel=UpLeveled
+  // const cartCookie = getParsedCookie('Product');
 
   // console.log('cartCookieFE', cartCookie);
   return (
@@ -27,14 +26,14 @@ export default function Cart(props) {
 
         {/* <div>{JSON.stringify(cartCookie)}</div> */}
         <div>
-          {props.cartProducts.map((singleNft) => {
+          {props.cartProducts.map((nftsWithProductQuantity) => {
             return (
               // css={nftStyles}
               <div className="nft single product">
                 <div>
                   <div>
                     <Image
-                      src={`/${singleNft.id}.jpg`}
+                      src={`/${nftsWithProductQuantity.id}.jpg`}
                       width="345"
                       height="230"
                     />
@@ -42,13 +41,13 @@ export default function Cart(props) {
                 </div>
                 {/* css={descriptionStyles} */}
                 <div>
-                  <h1>{singleNft.name}</h1>
+                  <h1>{nftsWithProductQuantity.name}</h1>
                   <div>
-                    Type: {singleNft.type} |
+                    Type: {nftsWithProductQuantity.type} |
                     <span data-test-id="product-price">
                       {' '}
-                      Price: {singleNft.price}
-                      Amount: {singleNft.amount}
+                      Price: {nftsWithProductQuantity.price}
+                      Amount: {nftsWithProductQuantity.amount}
                     </span>
                   </div>
                   <br />
@@ -66,26 +65,31 @@ export default function Cart(props) {
 }
 
 export async function getServerSideProps(context) {
-  const nftId = parseInt(context.query.nftId);
+  const nfts = await getNfts();
 
-  console.log('currentCookieValue', context.req.currentCookieValue);
+  console.log(
+    'context.req.cookies.productQuantity',
+    context.req.cookies.productQuantity,
+  );
 
+  // get parsed cookie into the BackEnd
   const parsedCookies = context.req.cookies.productQuantity
     ? JSON.parse(context.req.cookies.productQuantity)
     : [];
 
-  const cartProducts = (await getNfts()).map((nft) => {
+  console.log('parsedCookies', parsedCookies);
+  // Map over database and add property amount + corresponding value
+  const allNftsWithProductQuantity = nfts.map((nft) => {
     return {
       ...nft,
       amount:
-        parsedCookies.find(
-          (currentCookieValue) => product.id === currentCookieValue.id,
-        )?.amount || 0 /* null or 0 ? */,
+        parsedCookies.find((cookieNftObject) => nft.id === cookieNftObject.id)
+          ?.amount || 0 /* null or 0 ? */,
     };
   });
 
   return {
-    props: { cartProducts: cartProducts },
+    props: { cartProducts: allNftsWithProductQuantity },
   };
 }
 

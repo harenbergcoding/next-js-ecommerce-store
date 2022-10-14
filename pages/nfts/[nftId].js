@@ -116,7 +116,7 @@ export default function ShowSingleProduct(props) {
 
               //get Cookie the first time
               //returns undefined
-              const currentCookieValue = getParsedCookie('Product');
+              const currentCookieValue = getParsedCookie('product');
 
               // matching existing cookies with page id
               const foundCookie = currentCookieValue.find(
@@ -127,7 +127,7 @@ export default function ShowSingleProduct(props) {
               if (foundCookie) {
                 // set the productQuantity of the foundCookie -1
                 foundCookie.productQuantity--;
-                setStringifiedCookie('Product', currentCookieValue);
+                setStringifiedCookie('product', currentCookieValue);
               }
             }}
           >
@@ -139,12 +139,12 @@ export default function ShowSingleProduct(props) {
 
               //get Cookie the first time
               //returns undefined
-              const currentCookieValue = getParsedCookie('Product');
+              const currentCookieValue = getParsedCookie('product');
 
               // if cookie does not exist set cookie 'Product' as Array
 
               if (!currentCookieValue) {
-                return setStringifiedCookie('Product', [
+                return setStringifiedCookie('product', [
                   // productQuantity was initialized with 1
                   { id: props.nft.id, productQuantity: 2 },
                 ]);
@@ -165,11 +165,11 @@ export default function ShowSingleProduct(props) {
                   id: props.nft.id,
                   productQuantity: 2,
                 });
-                setStringifiedCookie('Product', currentCookieValue);
+                setStringifiedCookie('product', currentCookieValue);
               } else {
                 // set the productQuantity of the foundCookie +1
                 foundCookie.productQuantity++;
-                setStringifiedCookie('Product', currentCookieValue);
+                setStringifiedCookie('product', currentCookieValue);
               }
             }}
           >
@@ -184,10 +184,10 @@ export default function ShowSingleProduct(props) {
 
                 //get Cookie the first time
                 //returns undefined
-                const currentCookieValue = getParsedCookie('Product');
+                const currentCookieValue = getParsedCookie('product');
 
                 if (!currentCookieValue) {
-                  return setStringifiedCookie('Product', [
+                  return setStringifiedCookie('product', [
                     // productQuantity was initialized with 1
                     { id: props.nft.id, productQuantity: 1 },
                   ]);
@@ -207,10 +207,10 @@ export async function getServerSideProps(context) {
   const nftId = parseInt(context.query.nftId);
   const nfts = await getNfts();
 
-  console.log('currentCookieValue', context.req.currentCookieValue);
+  console.log('context.req.cookies.product', context.req.cookies.product);
 
-  const parsedCookies = context.req.cookies.productQuantity
-    ? JSON.parse(context.req.cookies.productQuantity)
+  const parsedCookies = context.req.cookies.product
+    ? JSON.parse(context.req.cookies.product)
     : [];
 
   const allNftsWithProductQuantity = nfts.map((nft) => {
@@ -230,6 +230,6 @@ export async function getServerSideProps(context) {
   // });
 
   return {
-    props: { nft: singleNftbyId },
+    props: { nft: singleNftbyId, cartProducts: allNftsWithProductQuantity },
   };
 }

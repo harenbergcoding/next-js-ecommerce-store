@@ -73,8 +73,8 @@ export async function getServerSideProps(context) {
   );
 
   // get parsed cookie into the BackEnd
-  const parsedCookies = context.req.cookies.productQuantity
-    ? JSON.parse(context.req.cookies.productQuantity)
+  const parsedCookies = context.req.cookies.product
+    ? JSON.parse(context.req.cookies.product)
     : [];
 
   console.log('parsedCookies', parsedCookies);

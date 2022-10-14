@@ -42,7 +42,7 @@ export default function Header() {
           <Link data-test-id="products-link" href="/nfts">
             NFTS
           </Link>
-          <Link href="/thank-you">CART 3</Link>
+          <Link href="/nfts/cart">CART 3</Link>
         </div>
         <div></div>
       </nav>

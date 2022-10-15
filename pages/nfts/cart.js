@@ -1,4 +1,3 @@
-// import fs from 'fs';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,37 +25,33 @@ export default function Cart(props) {
 
         {/* <div>{JSON.stringify(cartCookie)}</div> */}
         <div>
-          {props.cartProducts.map((nftsWithProductQuantity) => {
-            return (
-              // css={nftStyles}
-              <div className="nft single product">
-                <div>
+          {props.cartProducts.map((nftsInCart) => {
+            if (nftsInCart.amount) {
+              return (
+                // css={nftStyles}
+                <div className="nft single product">
                   <div>
+                    <div></div>
+                  </div>
+                  {/* css={descriptionStyles} */}
+                  <div>
+                    <h1>{nftsInCart.name}</h1>
                     <Image
-                      src={`/${nftsWithProductQuantity.id}.jpg`}
+                      src={`/${nftsInCart.id}.jpg`}
                       width="345"
                       height="230"
                     />
+                    <div>
+                      <span data-test-id="product-price">
+                        Price: {nftsInCart.price * nftsInCart.amount}
+                        <br />
+                        Amount: {nftsInCart.amount}
+                      </span>
+                    </div>
                   </div>
                 </div>
-                {/* css={descriptionStyles} */}
-                <div>
-                  <h1>{nftsWithProductQuantity.name}</h1>
-                  <div>
-                    Type: {nftsWithProductQuantity.type} |
-                    <span data-test-id="product-price">
-                      {' '}
-                      Price: {nftsWithProductQuantity.price}
-                      Amount: {nftsWithProductQuantity.amount}
-                    </span>
-                  </div>
-                  <br />
-                  About:
-                  <br />
-                  {/* {nft.description} */}
-                </div>
-              </div>
-            );
+              );
+            }
           })}
         </div>
       </main>
@@ -122,3 +117,70 @@ export async function getServerSideProps(context) {
 // We tried to recreate the visual explanation of cookies that José gave us (see attached drawing below).
 
 // https://openclassrooms.com/en/courses/7132446-create-a-web-application-with-react-js/7208826-share-state-between-different-components
+
+// (nftsInCart) => {return (nftsInCart.id === cartProducts.id)
+
+// import Head from 'next/head';
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { useEffect, useState } from 'react';
+// import { getNfts } from '../../database/nftDatabase';
+// import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
+
+// export default function Cart(props) {
+//   // const cartCookie = getParsedCookie('Product');
+
+//   // console.log('cartCookieFE', cartCookie);
+//   return (
+//     <div>
+//       <Head>
+//         <title>Cart</title>
+//         <meta
+//           name="Cart"
+//           content="Review all your selected products in the cart page"
+//         />
+//         <link rel="icon" href="/2.jpg" />
+//       </Head>
+
+//       <main>
+//         <h1>This is the cart page</h1>
+
+//         {/* <div>{JSON.stringify(cartCookie)}</div> */}
+//         <div>
+//           {props.cartProducts.map((nftsInCart) => {
+//             return (
+//               // css={nftStyles}
+//               <div className="nft single product">
+//                 <div>
+//                   <div>
+//                     <Image
+//                       src={`/${nftsInCart.id}.jpg`}
+//                       width="345"
+//                       height="230"
+//                     />
+//                   </div>
+//                 </div>
+//                 {/* css={descriptionStyles} */}
+//                 <div>
+//                   <h1>{nftsInCart.name}</h1>
+//                   <div>
+//                     Type: {nftsInCart.type} |
+//                     <span data-test-id="product-price">
+//                       {' '}
+//                       Price: {nftsInCart.price}
+//                       Amount: {nftsInCart.amount}
+//                     </span>
+//                   </div>
+//                   <br />
+//                   About:
+//                   <br />
+//                   {/* {nft.description} */}
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }

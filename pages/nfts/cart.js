@@ -68,7 +68,7 @@ export async function getServerSideProps(context) {
   const nfts = await getNfts();
 
   console.log(
-    'context.req.cookies.productQuantity',
+    'context.req.cookies.productQuantityCart',
     context.req.cookies.productQuantity,
   );
 
@@ -77,14 +77,15 @@ export async function getServerSideProps(context) {
     ? JSON.parse(context.req.cookies.product)
     : [];
 
-  console.log('parsedCookies', parsedCookies);
+  console.log('parsedCookiesCart', parsedCookies);
   // Map over database and add property amount + corresponding value
+
   const allNftsWithProductQuantity = nfts.map((nft) => {
     return {
       ...nft,
       amount:
         parsedCookies.find((cookieNftObject) => nft.id === cookieNftObject.id)
-          ?.amount || 0 /* null or 0 ? */,
+          ?.productQuantity || 0 /* null or 0 ? */,
     };
   });
 

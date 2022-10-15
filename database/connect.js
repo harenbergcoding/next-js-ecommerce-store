@@ -1,20 +1,34 @@
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
+// This loads all environment variables from a .env file
+// for all code after this line
+if (!process.env.FLY_IO_BUILD) config();
+
+// Type needed for the connection function below (TypeScript)
+// declare module globalThis {
+//   let postgresSqlClient: ReturnType<typeof postgres> | undefined;
+// }
+
+// Connect only once to the database
+// https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
+function connectOneTimeToDatabase() {
+  if (!globalThis.postgresSqlClient) {
+    globalThis.postgresSqlClient = postgres({
+      transform: {
+        ...postgres.camel,
+        undefined: null,
+      },
+    });
+  }
+
+  return globalThis.postgresSqlClient;
+}
+
+// Connect to PostgreSQL
+
+export const sqlOneTime = connectOneTimeToDatabase();
+
 config();
 
-const sql = postgres();
-
-//create function to call/get all nfts in the backend
-export async function getNfts() {
-  const allNfts = await sql`SELECT * FROM nfts;`;
-
-  return allNfts;
-}
-
-// select nft by id from the database
-export async function getNftById(id) {
-  const nft = await sql`SELECT * FROM nfts WHERE id = ${id}`;
-
-  return nft[0];
-}
+export const sql = postgres();

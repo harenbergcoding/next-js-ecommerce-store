@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getNfts } from '../../database/connect';
+import { getNfts } from '../../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 export default function Cart(props) {

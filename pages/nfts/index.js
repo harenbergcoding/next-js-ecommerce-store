@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { getNfts } from '../../database/connect';
+import { getNfts } from '../../database/nftDatabase';
 
 const h1Styles = css`
   margin-top: 80px;

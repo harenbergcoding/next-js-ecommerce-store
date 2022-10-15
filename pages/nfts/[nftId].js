@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { getNftById, getNfts } from '../../database/connect';
+import { getNftById, getNfts } from '../../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
 const h1Styles = css`

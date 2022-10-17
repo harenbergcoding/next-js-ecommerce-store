@@ -11,8 +11,6 @@ import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 // 4. reduce to totalsum [Sum1, Sum2, ...]
 
 export function getSum(props) {
-  let cartProductTotalSumArray = [];
-
   // get singleNftSum.props.children (sum of 1 product)
   let cartProductSumArray = props.cartProducts.map((singleNftSum) => {
     return <div>{singleNftSum.amount * singleNftSum.price}</div>;
@@ -71,7 +69,12 @@ export default function Cart(props) {
           })}
         </div>
         <h2>Total amount</h2>
-        <span>{getSum(props)}</span>
+        <span>
+          {getSum(props)[0].props.children +
+            getSum(props)[1].props.children +
+            getSum(props)[2].props.children +
+            getSum(props)[3].props.children}
+        </span>
         {console.log('getSum(props)', getSum(props))}
         {console.log(
           'getSum(props)[0].props.children',

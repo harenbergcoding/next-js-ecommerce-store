@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
           ?.productQuantity || 0 /* null or 0 ? */,
     };
   });
-
+  console.log('allNftsWithProductQuantity', allNftsWithProductQuantity);
   return {
     props: { cartProducts: allNftsWithProductQuantity },
   };

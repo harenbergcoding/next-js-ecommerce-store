@@ -5,22 +5,14 @@ import { useEffect, useState } from 'react';
 import { getNfts } from '../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
-// 1. Erstelle [] - check
-// 2. Get sum of each product
-// 3. push into array
-// 4. reduce to totalsum [Sum1, Sum2, ...]
-
-export function getSum(props) {
-  // get singleNftSum.props.children (sum of 1 product)
-  let cartProductSumArray = props.cartProducts.map((singleNftSum) => {
-    return <div>{singleNftSum.amount * singleNftSum.price}</div>;
-  });
-
-  return cartProductSumArray;
-}
-
 export default function Cart(props) {
-  // const cartCookie = getParsedCookie('Product');
+  // Get values from database and reduce
+  const productsSummary = props.cartProducts.reduce(
+    (previousValue, currentValue) => {
+      return previousValue + currentValue.amount * currentValue.price;
+    },
+    0,
+  );
 
   return (
     <div>
@@ -69,17 +61,7 @@ export default function Cart(props) {
           })}
         </div>
         <h2>Total amount</h2>
-        <span>
-          {getSum(props)[0].props.children +
-            getSum(props)[1].props.children +
-            getSum(props)[2].props.children +
-            getSum(props)[3].props.children}
-        </span>
-        {console.log('getSum(props)', getSum(props))}
-        {console.log(
-          'getSum(props)[0].props.children',
-          getSum(props)[0].props.children,
-        )}
+        <span>{productsSummary}</span>
       </main>
     </div>
   );
@@ -106,7 +88,7 @@ export async function getServerSideProps(context) {
       ...nft,
       amount:
         parsedCookies.find((cookieNftObject) => nft.id === cookieNftObject.id)
-          ?.productQuantity || 0 /* null or 0 ? */,
+          ?.productQuantity || 0,
     };
   });
   console.log('allNftsWithProductQuantity', allNftsWithProductQuantity);

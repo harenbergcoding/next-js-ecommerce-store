@@ -5,10 +5,32 @@ import { useEffect, useState } from 'react';
 import { getNfts } from '../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
+// export function getSum(props) {
+//   const cartProductArray = props.cartProducts;
+//   return cartProductArray.map((singleNftSum) => {
+//     return <div>{singleNftSum.amount * singleNftSum.price}</div>;
+//   });
+// }
+
+export function getSum(props) {
+  const cartProductArray = props.cartProducts.map((singleNftSum) => {
+    return <div>{singleNftSum.amount * singleNftSum.price}</div>;
+  });
+  return cartProductArray;
+}
+
+// export function getSum(props) {
+//   const cartProductArray = props.cartProducts.map((singleNftSum) => {
+//     if (props.cartProducts.amount) {
+//       return <div>{singleNftSum.amount * singleNftSum.price}</div>;
+//     }
+//   });
+//   return cartProductArray;
+// }
+
 export default function Cart(props) {
   // const cartCookie = getParsedCookie('Product');
 
-  // console.log('cartCookieFE', cartCookie);
   return (
     <div>
       <Head>
@@ -47,6 +69,7 @@ export default function Cart(props) {
                         <br />
                         Amount: {nftsInCart.amount}
                       </span>
+                      <div></div>
                     </div>
                   </div>
                 </div>
@@ -54,6 +77,8 @@ export default function Cart(props) {
             }
           })}
         </div>
+        <h2>Total amount</h2>
+        <span>{getSum(props)}</span>
       </main>
     </div>
   );

@@ -175,7 +175,7 @@ export default function ShowSingleProduct(props) {
           >
             +
           </button>
-          <a href="/nfts/cart" alt="">
+          <a href="/cart" alt="">
             <button
               css={addToCartButtonStyles}
               data-test-id="product-add-to-cart"

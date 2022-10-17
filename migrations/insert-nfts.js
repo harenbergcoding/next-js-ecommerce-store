@@ -1,4 +1,4 @@
-const animals = [
+const nfts = [
   {
     name: '#1',
     type: 'Dragonfly ',

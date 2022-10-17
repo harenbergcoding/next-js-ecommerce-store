@@ -6,9 +6,14 @@ import { getNfts } from '../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 export default function Cart(props) {
+  const [productAmount, setProductAmount] = useState(1);
+  const [cart, setCart] = useState(props.cartProducts);
+  const [removeCart, setRemoveCart] = useState(false);
+
   // Get values from database and reduce
   const productsSummary = props.cartProducts.reduce(
     (previousValue, currentValue) => {
+      // previousValue is the intional value 0
       return previousValue + currentValue.amount * currentValue.price;
     },
     0,
@@ -30,7 +35,7 @@ export default function Cart(props) {
 
         {/* <div>{JSON.stringify(cartCookie)}</div> */}
         <div>
-          {props.cartProducts.map((nftsInCart) => {
+          {cart.map((nftsInCart) => {
             if (nftsInCart.amount) {
               return (
                 // css={nftStyles}
@@ -52,7 +57,34 @@ export default function Cart(props) {
                         <br />
                         Amount: {nftsInCart.amount}
                       </span>
-                      <div></div>
+                      <button
+                        onClick={() => {
+                          setProductAmount(0);
+
+                          console.log('productAmount', productAmount);
+
+                          const currentCookieValue = getParsedCookie('product');
+                          console.log('currentCookieValue', currentCookieValue);
+
+                          // match cookie id with product id
+                          const foundCookie = currentCookieValue.find(
+                            (nftCartCookie) =>
+                              nftCartCookie.id === nftsInCart.id,
+                          );
+
+                          if (foundCookie) {
+                            foundCookie.productQuantity = setProductAmount(0);
+                            // setCart([]); - REMOVE ALL FEATURE
+                            setStringifiedCookie('product', currentCookieValue);
+                          }
+
+                          console.log('foundCookie', foundCookie);
+
+                          setRemoveCart(!removeCart);
+                        }}
+                      >
+                        X
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -60,6 +92,7 @@ export default function Cart(props) {
             }
           })}
         </div>
+
         <h2>Total amount</h2>
         <span>{productsSummary}</span>
       </main>

@@ -1,7 +1,20 @@
 import { css, Global } from '@emotion/react';
 import Layout from '../components/Layout';
+import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps }) {
+  const [cart, setCart] = useState();
+
+  const getCookie = getParsedCookie('cart');
+  if (getCookie) {
+    setCart(getCookie);
+  }
+
+  const setCookie = setStringifiedCookie('cart');
+  if (typeof cart !== 'undefined') {
+    setCart(setCookie);
+  }
+
   return (
     <>
       <Global // global styles

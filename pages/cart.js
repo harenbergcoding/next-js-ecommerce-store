@@ -8,7 +8,18 @@ import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 export default function Cart(props) {
   const [productAmount, setProductAmount] = useState(1);
   const [cart, setCart] = useState(props.cartProducts);
-  const [removeCart, setRemoveCart] = useState(false);
+  const [productInCartAmount, setProductInCartAmount] = useState();
+
+  const [count, setCount] = useState(0);
+  const [deleteItem, setDeleteItem] = useState(false);
+
+  // useEffect(() => {
+  //   console.log('hey!');
+  // }, [deleteItem]);
+
+  useEffect(() => {
+    setDeleteItem(true);
+  }, [deleteItem]);
 
   // Get values from database and reduce
   const productsSummary = props.cartProducts.reduce(
@@ -33,17 +44,12 @@ export default function Cart(props) {
       <main>
         <h1>This is the cart page</h1>
 
-        {/* <div>{JSON.stringify(cartCookie)}</div> */}
         <div>
           {cart.map((nftsInCart) => {
             if (nftsInCart.amount) {
               return (
                 // css={nftStyles}
                 <div className="nft single product">
-                  <div>
-                    <div></div>
-                  </div>
-                  {/* css={descriptionStyles} */}
                   <div>
                     <h1>{nftsInCart.name}</h1>
                     <Image
@@ -57,9 +63,21 @@ export default function Cart(props) {
                         <br />
                         Amount: {nftsInCart.amount}
                       </span>
+                      <br />
+                      <button>-</button>
+                      <button>+</button>
+                      <br />
                       <button
                         onClick={() => {
                           setProductAmount(0);
+                          setDeleteItem(true);
+
+                          const initialCookieValueCart =
+                            getParsedCookie('product');
+                          console.log(
+                            'initialCookieValueCart.productQuantity',
+                            initialCookieValueCart.productQuantity,
+                          );
 
                           console.log('productAmount', productAmount);
 
@@ -79,8 +97,6 @@ export default function Cart(props) {
                           }
 
                           console.log('foundCookie', foundCookie);
-
-                          setRemoveCart(!removeCart);
                         }}
                       >
                         X
@@ -92,7 +108,6 @@ export default function Cart(props) {
             }
           })}
         </div>
-
         <h2>Total amount</h2>
         <span>{productsSummary}</span>
       </main>

@@ -1,19 +1,27 @@
 import { css, Global } from '@emotion/react';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState();
 
-  const getCookie = getParsedCookie('cart');
-  if (getCookie) {
-    setCart(getCookie);
-  }
+  // define Cookies + Values in app.js to have acces on other pages via props
+  // get Cookie, triggers on first render only
+  useEffect(() => {
+    const getCookie = getParsedCookie('cart');
+    if (getCookie) {
+      setCart(getCookie);
+    }
+  }, []);
 
-  const setCookie = setStringifiedCookie('cart');
-  if (typeof cart !== 'undefined') {
-    setCart(setCookie);
-  }
+  // set Cookie, renders every time the cart changes
+  useEffect(() => {
+    if (typeof cart !== 'undefined') {
+      setStringifiedCookie('cart', cart);
+    }
+  }, [cart]);
+  console.log('AppCart', cart);
 
   return (
     <>
@@ -36,7 +44,7 @@ function MyApp({ Component, pageProps }) {
       />
       <Layout>
         {/* including Header and Footer components  */}
-        <Component {...pageProps} />
+        <Component {...pageProps} cart={cart} setCart={setCart} />
       </Layout>
     </>
   );

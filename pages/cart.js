@@ -1,25 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getNfts } from '../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 export default function Cart(props) {
+  console.log('props.cart', props.cart);
+
   const [productAmount, setProductAmount] = useState(1);
   const [cart, setCart] = useState(props.cartProducts);
   const [productInCartAmount, setProductInCartAmount] = useState();
-
-  const [count, setCount] = useState(0);
-  const [deleteItem, setDeleteItem] = useState(false);
-
-  // useEffect(() => {
-  //   console.log('hey!');
-  // }, [deleteItem]);
-
-  useEffect(() => {
-    setDeleteItem(true);
-  }, [deleteItem]);
 
   // Get values from database and reduce
   const productsSummary = props.cartProducts.reduce(
@@ -45,7 +35,7 @@ export default function Cart(props) {
         <h1>This is the cart page</h1>
 
         <div>
-          {cart.map((nftsInCart) => {
+          {props.cartProducts.map((nftsInCart) => {
             if (nftsInCart.amount) {
               return (
                 // css={nftStyles}
@@ -63,15 +53,9 @@ export default function Cart(props) {
                         <br />
                         Amount: {nftsInCart.amount}
                       </span>
-                      <br />
-                      <button>-</button>
-                      <button>+</button>
-                      <br />
+
                       <button
                         onClick={() => {
-                          setProductAmount(0);
-                          setDeleteItem(true);
-
                           const initialCookieValueCart =
                             getParsedCookie('product');
                           console.log(
@@ -124,8 +108,8 @@ export async function getServerSideProps(context) {
   );
 
   // get parsed cookie into the BackEnd
-  const parsedCookies = context.req.cookies.product
-    ? JSON.parse(context.req.cookies.product)
+  const parsedCookies = context.req.cookies.cart
+    ? JSON.parse(context.req.cookies.cart)
     : [];
 
   console.log('parsedCookiesCart', parsedCookies);
@@ -136,7 +120,7 @@ export async function getServerSideProps(context) {
       ...nft,
       amount:
         parsedCookies.find((cookieNftObject) => nft.id === cookieNftObject.id)
-          ?.productQuantity || 0,
+          ?.cart || 0,
     };
   });
   console.log('allNftsWithProductQuantity', allNftsWithProductQuantity);

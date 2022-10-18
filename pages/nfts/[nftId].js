@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
-import Cookie from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { getNftById, getNfts } from '../../database/nftDatabase';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
@@ -68,7 +66,9 @@ const addToCartButtonStyles = css`
 // }
 
 export default function ShowSingleProduct(props) {
-  const [numberOfItems, setNumberOfItems] = useState(1);
+  console.log('props.cart', props.cart);
+
+  const [productQuantity, setPoductQuantity] = useState(1);
 
   return (
     <>
@@ -105,73 +105,89 @@ export default function ShowSingleProduct(props) {
         <div>{/* <div>Price: {props.nft.price}</div> */}</div>
         <div></div>
         <div css={addToCartStyles}>
-          <span>Add Quantity: {numberOfItems}</span>
+          <span>Add Quantity: {productQuantity}</span>
           <button
             // refactor into a HandleChange function!
             onClick={() => {
               // number initialized with 1, preventing user going below 1
-              numberOfItems >= 2
-                ? setNumberOfItems(numberOfItems - 1)
-                : setNumberOfItems(1);
-
-              //get Cookie the first time
-              //returns undefined
-              const currentCookieValue = getParsedCookie('product');
-
-              // matching existing cookies with page id
-              const foundCookie = currentCookieValue.find(
-                (nftCookie) => nftCookie.id === props.nft.id,
-              );
-
-              // add new cookie if not existent
-              if (foundCookie) {
-                // set the productQuantity of the foundCookie -1
-                foundCookie.productQuantity--;
-                setStringifiedCookie('product', currentCookieValue);
-              }
+              productQuantity >= 2
+                ? setPoductQuantity(productQuantity - 1)
+                : setPoductQuantity(1);
             }}
+
+            // COMMENT get Cookie the first time
+            // COMMENT returns undefined
+
+            // const currentCookieValue = getParsedCookie('product');
+
+            // COMMENT matching existing cookies with page id
+
+            // const foundCookie = currentCookieValue.find(
+            //   (nftCookie) => nftCookie.id === props.nft.id,
+            // );
+
+            // COMMENT add new cookie if not existent
+
+            //   if (foundCookie) {
+            //     // set the productQuantity of the foundCookie -1
+            //     foundCookie.productQuantity--;
+            //     setStringifiedCookie('product', currentCookieValue);
+            //   }
+            // }}
           >
             -
           </button>
           <button
             onClick={() => {
-              setNumberOfItems(numberOfItems + 1);
+              setPoductQuantity(productQuantity + 1);
 
-              //get Cookie the first time
-              //returns undefined
-              const currentCookieValue = getParsedCookie('product');
-
-              // if cookie does not exist set cookie 'Product' as Array
-
-              if (!currentCookieValue) {
-                return setStringifiedCookie('product', [
-                  // productQuantity was initialized with 1
-                  { id: props.nft.id, productQuantity: 2 },
-                ]);
-              }
-
-              {
-                console.log('currentCookieValue', currentCookieValue);
-              }
-
-              // matching existing cookies with page id
-              const foundCookie = currentCookieValue.find(
-                (nftCookie) => nftCookie.id === props.nft.id,
-              );
-
-              // add new cookie if not existent
-              if (!foundCookie) {
-                currentCookieValue.push({
-                  id: props.nft.id,
-                  productQuantity: 2,
-                });
-                setStringifiedCookie('product', currentCookieValue);
-              } else {
-                // set the productQuantity of the foundCookie +1
-                foundCookie.productQuantity++;
-                setStringifiedCookie('product', currentCookieValue);
-              }
+              // return props.setCart([
+              //   {
+              //     id: props.nft.id,
+              //     cart: productQuantity,
+              //   },
+              // ])
+              // setStringifiedCookie('product', currentCookieValue);
             }}
+
+            // COMMENT get Cookie the first time
+            // COMMENT returns undefined
+
+            // const currentCookieValue = getParsedCookie('product');
+
+            // COMMENT if cookie does not exist set cookie 'Product' as Array
+
+            // if (!currentCookieValue) {
+            //   return setStringifiedCookie('product', [
+            //     // productQuantity was initialized with 1
+            //     { id: props.nft.id, productQuantity: 2 },
+            //   ]);
+            // }
+
+            // {
+            //   console.log('currentCookieValue', currentCookieValue);
+            // }
+
+            // COMMENT matching existing cookies with page id
+            // const foundCookie = currentCookieValue.find(
+            //   (nftCookie) => nftCookie.id === props.nft.id,
+            // );
+
+            // COMMENT add new cookie if not existent
+
+            // if (!foundCookie) {
+            //   currentCookieValue.push({
+            //     id: props.nft.id,
+            //     productQuantity: 2,
+            //   });
+            //   setStringifiedCookie('product', currentCookieValue);
+            // } else {
+            // COMMENT set the productQuantity of the foundCookie +1
+
+            //     foundCookie.productQuantity++;
+            //     setStringifiedCookie('product', currentCookieValue);
+            //   }
+            // }}
           >
             +
           </button>
@@ -180,19 +196,53 @@ export default function ShowSingleProduct(props) {
               css={addToCartButtonStyles}
               data-test-id="product-add-to-cart"
               onClick={() => {
-                setNumberOfItems(numberOfItems);
+                // props.cart = getParsedCookie('cart');
 
-                //get Cookie the first time
-                //returns undefined
-                const currentCookieValue = getParsedCookie('product');
-
-                if (!currentCookieValue) {
-                  return setStringifiedCookie('product', [
-                    // productQuantity was initialized with 1
-                    { id: props.nft.id, productQuantity: 1 },
+                if (!props.cart) {
+                  return props.setCart([
+                    {
+                      id: props.nft.id,
+                      cart: productQuantity,
+                    },
                   ]);
                 }
+
+                const foundCookie = props.cart.find((cookieNftObject) => {
+                  return cookieNftObject.id === props.nft.id;
+                });
+
+                console.log('props.nft.id', props.nft.id);
+                // const foundCookie = currentCookieValue.find(
+                //   (nftCookie) => nftCookie.id === props.nft.id,
+                // );
+                console.log('foundCookie', foundCookie);
+
+                if (!foundCookie) {
+                  props.cart.push({
+                    id: props.nft.id,
+                    cart: productQuantity,
+                  });
+                  setStringifiedCookie('cart', props.cart);
+                } else {
+                  foundCookie.cart = productQuantity;
+                  setStringifiedCookie('cart', props.cart);
+                }
               }}
+
+              // COMMENT get Cookie the first time
+              // COMMENT returns undefined
+
+              // const currentCookieValue = getParsedCookie('product');
+
+              // if (!currentCookieValue) {
+              //   return setStringifiedCookie('product', [
+
+              // COMMENT productQuantity was initialized with 1
+
+              //       { id: props.nft.id, productQuantity: 1 },
+              //     ]);
+              //   }
+              // }}
             >
               Add to cart
             </button>
@@ -207,21 +257,23 @@ export async function getServerSideProps(context) {
   const nftId = parseInt(context.query.nftId);
   const nfts = await getNfts();
 
-  console.log('context.req.cookies.product', context.req.cookies.product);
+  // console.log('context.req.cookies.cart', context.req.cookies.cart);
 
-  const parsedCookies = context.req.cookies.product
-    ? JSON.parse(context.req.cookies.product)
+  const parsedCookies = context.req.cookies.cart
+    ? JSON.parse(context.req.cookies.cart)
     : [];
+
+  console.log('parsedCookies', parsedCookies);
 
   const allNftsWithProductQuantity = nfts.map((nft) => {
     return {
       ...nft,
       amount:
         parsedCookies.find((cookieNftObject) => nft.id === cookieNftObject.id)
-          ?.amount || 0 /* null or 0 ? */,
+          ?.cart || 0 /* null or 0 ? */,
     };
   });
-
+  console.log('allNftsWithProductQuantity', allNftsWithProductQuantity);
   // import function grab id from the url
   const singleNftbyId = await getNftById(nftId);
 

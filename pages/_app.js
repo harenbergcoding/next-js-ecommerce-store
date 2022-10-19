@@ -8,7 +8,20 @@ function MyApp({ Component, pageProps }) {
 
   // define Cookies + Values in app.js to have acces on other pages via props
   // get Cookie, triggers on first render only
+
+  const getCookie = getParsedCookie('cart');
+  console.log('getCookieApp.js', getCookie);
+
+  // const totalAmount = getCookie.reduce((previousValue, currentValue) => {
+  //   // previousValue is the intional value 0
+  //   return previousValue + currentValue.cart;
+  // }, 0);
+
+  // console.log('totalAmountApp.js', totalAmount);
+
   useEffect(() => {
+    console.log('triggered1');
+
     const getCookie = getParsedCookie('cart');
     if (getCookie) {
       setCart(getCookie);
@@ -17,11 +30,17 @@ function MyApp({ Component, pageProps }) {
 
   // set Cookie, renders every time the cart changes
   useEffect(() => {
+    console.log('triggered2');
     if (typeof cart !== 'undefined') {
       setStringifiedCookie('cart', cart);
     }
   }, [cart]);
+
   console.log('AppCart', cart);
+
+  // const productSum = getParsedCookie('cart');
+
+  // console.log('productSum', productSum);
 
   return (
     <>

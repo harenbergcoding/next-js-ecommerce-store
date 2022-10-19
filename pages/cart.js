@@ -57,15 +57,15 @@ export default function Cart(props) {
                       <button
                         onClick={() => {
                           const initialCookieValueCart =
-                            getParsedCookie('product');
-                          console.log(
-                            'initialCookieValueCart.productQuantity',
-                            initialCookieValueCart.productQuantity,
-                          );
+                            getParsedCookie('cart');
+                          // console.log(
+                          //   'initialCookieValueCart.productQuantity',
+                          //   initialCookieValueCart.productQuantity,
+                          // );
 
                           console.log('productAmount', productAmount);
 
-                          const currentCookieValue = getParsedCookie('product');
+                          const currentCookieValue = getParsedCookie('cart');
                           console.log('currentCookieValue', currentCookieValue);
 
                           // match cookie id with product id

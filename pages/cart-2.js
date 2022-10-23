@@ -77,7 +77,6 @@ export default function Cart(props) {
 
                     // call Cookies
                     const cartCookie = getParsedCookie('cart');
-                    console.log('cartCookie', cartCookie);
 
                     // get object that should be remove from cart
                     const foundCookie = cartCookie.filter((item) => {
@@ -86,7 +85,6 @@ export default function Cart(props) {
 
                     // get id from object that should be removed frmo cart
                     const foundCookieId = foundCookie[0].id;
-                    console.log('foundCookie[0].id', foundCookie[0].id);
 
                     // create new cart
                     const newCart = cart.filter((item) => {

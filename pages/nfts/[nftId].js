@@ -59,12 +59,6 @@ const addToCartButtonStyles = css`
   }
 `;
 
-// export function handleChangeAddproduct(numberOfItems, productName) {
-//   return (
-//   setNumberOfItems(numberOfItems + 1);
-//   setStringifiedCookie(`Product ${productName}`, numberOfItems);)
-// }
-
 export default function ShowSingleProduct(props) {
   console.log('props.cart[nftId]', props.cart);
 
@@ -109,10 +103,11 @@ export default function ShowSingleProduct(props) {
           <button
             // refactor into a HandleChange function!
             onClick={() => {
-              // number initialized with 1, preventing user going below 1
-              productQuantity >= 2
-                ? setPoductQuantity(productQuantity - 1)
-                : setPoductQuantity(1);
+              if (productQuantity === 0) {
+                return 0;
+              } else {
+                setPoductQuantity(productQuantity - 1);
+              }
             }}
 
             // COMMENT get Cookie the first time
@@ -223,9 +218,11 @@ export default function ShowSingleProduct(props) {
                   });
                   setStringifiedCookie('cart', props.cart);
                 } else {
-                  foundCookie.cart = productQuantity;
-                  setStringifiedCookie('cart', props.cart);
+                  foundCookie.cart = foundCookie.cart + quantity;
                 }
+                const newQuantity = [...props.cart];
+
+                props.setCart(newQuantity);
               }}
 
               // COMMENT get Cookie the first time

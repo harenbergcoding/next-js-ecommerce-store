@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }) {
           }
         `}
       />
-      <Layout>
+      <Layout cart={cart}>
         {/* including Header and Footer components  */}
         <Component {...pageProps} cart={cart} setCart={setCart} />
       </Layout>

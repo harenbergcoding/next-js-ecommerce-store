@@ -32,17 +32,29 @@ const navStyles = css`
   }
 `;
 
-export default function Header() {
+export default function Header(props) {
+  const cartSum = () => {
+    return props.cart?.reduce(
+      (accumulator, item) => accumulator + item.cart,
+      0,
+    );
+  };
+
   return (
     <header>
       <nav css={navStyles}>
         <div></div>
         <div>
           <Link href="/">HOME</Link>
-          <Link data-test-id="products-link" href="/nfts">
-            NFTS
+          <Link href="/nfts">NFTS</Link>
+          <Link href="/cart-2">
+            <a data-test-id="cart-link">
+              CART{' '}
+              <span data-test-id="cart-count">
+                {props.cart ? cartSum() : 0}
+              </span>
+            </a>
           </Link>
-          <Link href="/cart">CART 3</Link>
         </div>
         <div></div>
       </nav>

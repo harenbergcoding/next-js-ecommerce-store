@@ -3,12 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 const formWrapperStyles = css`
-  width: 1100px;
+  width: 900px;
   margin: 0 auto;
   justify-content: center;
   text-align: center;
   border: 1px solid black;
-  padding: 50px 30px 400px;
+  padding: 20px 30px 400px;
+  margin-top: 30px;
 `;
 
 const shippingStyles = css`
@@ -16,10 +17,14 @@ const shippingStyles = css`
   > div {
     display: flex;
     justify-content: fill;
+    margin: 30px 0 20px;
   }
 
   > div > label {
     margin-left: 20px;
+  }
+
+  > h2 {
   }
 `;
 
@@ -49,10 +54,7 @@ export default function Checkout() {
 
       <main css={formWrapperStyles}>
         <h1>Checkout Page</h1>
-        <div>
-          Total items: NUMBER <br />
-          Total amount: NUMBER
-        </div>
+
         <form>
           <div className="shipping-information" css={shippingStyles}>
             <h2>Shipping Information</h2>
@@ -60,7 +62,7 @@ export default function Checkout() {
               <label>
                 First Name
                 <br />
-                <input data-test-id="checkout-first-name" />
+                <input data-test-id="checkout-first-name" placeholder="Max" />
               </label>
               <label>
                 Last Name

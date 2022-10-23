@@ -187,7 +187,7 @@ export default function ShowSingleProduct(props) {
           >
             +
           </button>
-          <a href="/cart-2" alt="">
+          <a href="/cart" alt="">
             <button
               css={addToCartButtonStyles}
               data-test-id="product-add-to-cart"

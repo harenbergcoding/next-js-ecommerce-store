@@ -47,7 +47,7 @@ export default function Header(props) {
         <div>
           <Link href="/">HOME</Link>
           <Link href="/nfts">NFTS</Link>
-          <Link href="/cart-2">
+          <Link href="/cart">
             <a data-test-id="cart-link">
               CART{' '}
               <span data-test-id="cart-count">

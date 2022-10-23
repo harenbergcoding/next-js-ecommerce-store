@@ -5,7 +5,7 @@ exports.up = async (sql) => {
       name varchar(40) NOT NULL,
       type varchar(40) NOT NULL,
       price integer,
-      decription varchar (200) NOT NULL,
+      decription varchar (200) NOT NULL
     )
   `;
 };

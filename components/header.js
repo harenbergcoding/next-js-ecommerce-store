@@ -1,12 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import Link from 'next/link';
-
-// const headerStyles = css`
-//   position: fixed;
-//   top: 0;
-//   width: 100%;
-// `;
 
 const navStyles = css`
   margin-top: 20px;

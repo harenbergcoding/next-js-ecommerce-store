@@ -24,7 +24,6 @@ const nftStyles = css`
   > div {
     width: 576px;
     height: 382px;
-    /* text-align: center; */
   }
 `;
 
@@ -90,11 +89,8 @@ export default function NftOverview(props) {
 export async function getServerSideProps() {
   const nfts = await getNfts();
 
-  // console.log('nfts', nfts);
-
   return {
     props: {
-      // replace nftDatabase with nfts which comes from the db
       nftDatabase: nfts,
     },
   };

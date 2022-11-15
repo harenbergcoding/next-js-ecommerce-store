@@ -1,9 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { CookieBanner } from '../components/cookieBanner';
-
-// import { useState } from 'react';
+import { CookieBanner } from '../components/CookieBanner';
 
 const h1Styles = css`
   margin-top: 80px;

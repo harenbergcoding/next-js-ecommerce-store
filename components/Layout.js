@@ -1,4 +1,3 @@
-import Footer from './footer';
 import Header from './header';
 
 export default function Layout(props) {
@@ -6,7 +5,6 @@ export default function Layout(props) {
     <>
       <Header cart={props.cart} />
       {props.children}
-      {/* <Footer /> */}
     </>
   );
 }

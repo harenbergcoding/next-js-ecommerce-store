@@ -53,8 +53,6 @@ const addToCartButtonStyles = css`
 `;
 
 export default function ShowSingleProduct(props) {
-  console.log('props.cart[nftId]', props.cart);
-
   const [productQuantity, setPoductQuantity] = useState(1);
 
   return (

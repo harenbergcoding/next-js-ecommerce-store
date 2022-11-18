@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { getNfts } from '../database/nftDatabase';
+import { GetServerSidePropsContext } from 'next';
 
 const formWrapperStyles = css`
   width: 900px;
@@ -70,11 +71,7 @@ export default function Checkout(props) {
       <main css={formWrapperStyles}>
         <h1>Checkout Page</h1>
 
-        <form
-        // onSubmit={(event) => {
-        //   event.preventDefault();
-        // }}
-        >
+        <form>
           <div className="shipping-information" css={shippingStyles}>
             <h2>Shipping Information</h2>
             <div>

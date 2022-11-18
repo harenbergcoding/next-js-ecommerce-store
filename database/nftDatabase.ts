@@ -11,7 +11,7 @@ export async function getNfts() {
 
 // select nft by id
 
-export async function getNftById(id) {
+export async function getNftById(id: number) {
   const nft = await sql`SELECT * FROM nfts WHERE id = ${id}`;
 
   return nft[0];

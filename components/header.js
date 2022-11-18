@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { ValueOf } from 'next/dist/shared/lib/constants';
 import Link from 'next/link';
 
 const navStyles = css`
@@ -24,6 +25,13 @@ const navStyles = css`
     gap: 20px;
   }
 `;
+
+// type Props = {
+//   accumulator: number;
+//   item: number;
+//   reduce: number;
+//   cart?: number | undefined;
+// };
 
 export default function Header(props) {
   const cartSum = () => {

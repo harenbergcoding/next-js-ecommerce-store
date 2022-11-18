@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { getNfts } from '../database/nftDatabase';
-import { GetServerSidePropsContext } from 'next';
 
 const formWrapperStyles = css`
   width: 900px;

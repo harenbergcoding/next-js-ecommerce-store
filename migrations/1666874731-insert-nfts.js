@@ -32,7 +32,7 @@ const nfts = [
 exports.up = async (sql) => {
   await sql`
   -- selecting all properties from the variable nfts to insert into the nfts realtion
-    INSERT INTO nfts2022 ${sql(nfts, 'name', 'type', 'price', 'description')}
+    INSERT INTO nfts ${sql(nfts, 'name', 'type', 'price', 'description')}
   `;
 };
 

@@ -35,17 +35,54 @@ const addToCartStyles = css`
   margin-top: 30px;
   display: flex;
   justify-content: center;
+  .changeQuantityMinus {
+    margin-left: 5px;
+    height: 24px;
+    width: 24px;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-top: 1px;
+    background-color: lightpink;
+    cursor: pointer;
+  }
+  .changeQuantityMinus:hover {
+    width: 27px;
+    height: 27px;
+    margin-top: 0px;
+    margin-right: -3px;
+  }
+
+  .changeQuantityPlus {
+    margin-left: 5px;
+    height: 24px;
+    width: 24px;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-top: 1px;
+    background-color: #4b9793;
+    color: white;
+    cursor: pointer;
+  }
+  .changeQuantityPlus:hover {
+    width: 27px;
+    height: 27px;
+    margin-top: 0px;
+    margin-right: -3px;
+  }
 `;
 
 const addToCartButtonStyles = css`
   display: flex;
-
+  margin-left: 15px;
+  padding-left: 15px;
   background-color: #4b9793;
   color: white;
   justify-content: center;
   border-radius: 4px;
+  border: 2px solid black;
   width: 150px;
   padding: 4px;
+  cursor: pointer;
   :hover {
     background-color: white;
     color: #4b9793;
@@ -89,8 +126,9 @@ export default function ShowSingleProduct(props) {
         </div>
 
         <div css={addToCartStyles}>
-          <span>Add Quantity: {productQuantity}</span>
+          <span>Quantity: {productQuantity}</span>
           <button
+            className="changeQuantityMinus"
             data-test-id="product-quantity"
             // refactor into a HandleChange function!
             onClick={() => {
@@ -104,6 +142,7 @@ export default function ShowSingleProduct(props) {
             -
           </button>
           <button
+            className="changeQuantityPlus"
             onClick={() => {
               setPoductQuantity(productQuantity + 1);
             }}

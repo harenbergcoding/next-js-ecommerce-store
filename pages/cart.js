@@ -10,8 +10,13 @@ export default function Cart(props) {
   const [cart, setCart] = useState(nftsInCart);
   const cartCookie = getParsedCookie('cart');
 
+  const productStyles = css``;
+
+  const h1Styles = css`
+    text-align: center;
+  `;
+
   const nftSingleProductStyles = css`
-    h1,
     h2 {
       text-align: center;
     }
@@ -45,9 +50,12 @@ export default function Cart(props) {
   `;
 
   const sumStyles = css`
+    margin-bottom: -190px;
+    margin-top: 100px;
     border: 1px solid black;
     width: 345px;
-    margin: 20px auto;
+    margin-left: 70%;
+    /* margin: 20px auto; */
     text-align: center;
     border-radius: 4px;
 
@@ -78,71 +86,7 @@ export default function Cart(props) {
         />
         <link rel="icon" href="/2.jpg" />
       </Head>
-
-      {cart.map((nftInCart) => {
-        if (nftInCart.amount) {
-          return (
-            <div
-              css={nftSingleProductStyles}
-              data-test-id={`cart-product-${nftInCart.id}`}
-            >
-              <h1>Shopping Cart</h1>
-              <h2>{nftInCart.name}</h2>
-              <img
-                src={`/${nftInCart.id}.jpg`}
-                width="345"
-                height="230"
-                className="productImage"
-              />
-              <div className="price">
-                <span data-test-id="product-price">
-                  <br />
-                  Price: {nftInCart.amount} x{' '}
-                  {nftInCart.price * nftInCart.amount}
-                  <br />
-                </span>
-                <button
-                  className="deleteButton"
-                  data-test-id={`cart-product-remove-${nftInCart.id}`}
-                  onClick={() => {
-                    // call Cookies
-                    const cartCookie = getParsedCookie('cart');
-
-                    // get object that should be remove from cart
-                    const foundCookie = cartCookie.filter((item) => {
-                      return item.id === nftInCart.id;
-                    });
-
-                    // get id from object that should be removed frmo cart
-                    const foundCookieId = foundCookie[0].id;
-
-                    // create new cart
-                    const newCart = cart.filter((item) => {
-                      return item.id !== foundCookieId;
-                    });
-
-                    // get all objects to set in new cookie minus the object that should be deleted
-                    const foundCookieToSetCart = cartCookie.filter((item) => {
-                      return item.id !== nftInCart.id;
-                    });
-
-                    // set new cart
-                    setCart(newCart);
-
-                    // set new cookie
-                    setStringifiedCookie(
-                      'cart',
-                      props.setCart(foundCookieToSetCart),
-                    );
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-      })}
+      <h1 css={h1Styles}>Shopping Cart</h1>
       <div css={sumStyles}>
         <div data-test-id="cart-total">
           <h2>Total : {totalSum()},-</h2>
@@ -152,6 +96,75 @@ export default function Cart(props) {
             Checkout
           </button>
         </a>
+      </div>
+      <div>
+        <div css={productStyles}>
+          {cart.map((nftInCart) => {
+            if (nftInCart.amount) {
+              return (
+                <div
+                  css={nftSingleProductStyles}
+                  data-test-id={`cart-product-${nftInCart.id}`}
+                >
+                  <h2>{nftInCart.name}</h2>
+                  <img
+                    src={`/${nftInCart.id}.jpg`}
+                    width="345"
+                    height="230"
+                    className="productImage"
+                  />
+                  <div className="price">
+                    <span data-test-id="product-price">
+                      <br />
+                      Price: {nftInCart.amount} x{' '}
+                      {nftInCart.price * nftInCart.amount}
+                      <br />
+                    </span>
+                    <button
+                      className="deleteButton"
+                      data-test-id={`cart-product-remove-${nftInCart.id}`}
+                      onClick={() => {
+                        // call Cookies
+                        const cartCookie = getParsedCookie('cart');
+
+                        // get object that should be remove from cart
+                        const foundCookie = cartCookie.filter((item) => {
+                          return item.id === nftInCart.id;
+                        });
+
+                        // get id from object that should be removed frmo cart
+                        const foundCookieId = foundCookie[0].id;
+
+                        // create new cart
+                        const newCart = cart.filter((item) => {
+                          return item.id !== foundCookieId;
+                        });
+
+                        // get all objects to set in new cookie minus the object that should be deleted
+                        const foundCookieToSetCart = cartCookie.filter(
+                          (item) => {
+                            return item.id !== nftInCart.id;
+                          },
+                        );
+
+                        // set new cart
+                        setCart(newCart);
+
+                        // set new cookie
+                        setStringifiedCookie(
+                          'cart',
+                          props.setCart(foundCookieToSetCart),
+                        );
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );

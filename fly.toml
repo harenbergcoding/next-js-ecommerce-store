@@ -1,4 +1,4 @@
-app = "nfts"
+app = "nextjs-ecom-store"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
